@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>揪團訂單管理系統</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+    <script src="js/main.js"></script>
+
+<body>
+
+    <header id="mainHeader" style="display:none;">
+        <h1>揪團系統</h1>
+        <nav>
+            <button onclick="showPage('MainPage')">主畫面</button>
+            <button onclick="showPage('JoinOrder')">我加的單</button>
+            <button onclick="showPage('Order')">我揪的單</button>
+            <button onclick="showPage('HistoryRecord')">歷史紀錄</button>
+            <button onclick="showPage('SearchService')">搜尋</button>
+            <div class="avatar-wrapper">
+                <button class="avatar-btn" onclick="toggleUserMenu()">
+                    <span id="avatarText">👤</span>
+                </button>
+
+                <div id="userMenu" class="user-menu">
+                    <div class="user-menu-header">
+                        <div class="user-avatar-large">👤</div>
+                        <div class="user-greeting">
+                            <div id="userGreeting">你好！</div>
+                            <div class="user-email" id="userAccount"></div>
+                        </div>
+                    </div>
+
+                    <button onclick="showPage('Page'); closeUserMenu()">更改用戶資料</button>
+                    <button onclick="logout(); closeUserMenu()">登出</button>
+                </div>
+            </div>
+
+        </nav>
+    </header>
+
+    <div id="app-container">
+
+        <div id="User" class="page active">
+            <h2>初始頁面 (登入/註冊)</h2>
+            <p>請輸入帳號密碼登入或註冊。</p>
+            <input type="text" id="loginAccount" placeholder="帳號">
+            <div class="password-container">
+                <input type="password" id="loginPassword" placeholder="密碼">
+                <button type="button" class="toggle-password" onclick="togglePasswordVisibility('loginPassword')">
+                    <svg class="eye-icon" viewBox="0 0 24 24">
+                        <path
+                            d="M12 7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.82l2.92 2.92c1.51-1.26 2.7-2.89 3.44-4.74-1.73-4.39-6-7.5-11-7.5-1.4 0-2.74.25-3.98.7l2.16 2.16C10.74 7.13 11.35 7 12 7zM2 4.27l2.28 2.28.46.46C3.08 8.3 1.78 10.02 1 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.42.42L19.73 22 21 20.73 3.27 3 2 4.27zM7.53 9.8l1.55 1.55c-.05.21-.08.43-.08.65 0 1.66 1.34 3 3 3 .22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53-2.76 0-5-2.24-5-5 0-.79.2-1.53.53-2.2zm4.31-.78l3.15 3.15.02-.16c0-1.66-1.34-3-3-3l-.17.01z" />
+                    </svg>
+                </button>
+            </div>
+            <button class="primary" onclick="login()">登入</button>
+            <button onclick="showPage('UserProfile')">註冊</button>
+        </div>
+
+        <div id="UserProfile" class="page">
+            <h2>註冊</h2>
+            <input type="text" id="registerAccount" placeholder="**帳號: String** (必填)" required>
+            <div class="password-container">
+                <input type="password" id="registerPassword" placeholder="密碼">
+                <button type="button" class="toggle-password" onclick="togglePasswordVisibility('registerPassword')">
+                    <svg class="eye-icon" viewBox="0 0 24 24">
+                        <path
+                            d="M12 7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.82l2.92 2.92c1.51-1.26 2.7-2.89 3.44-4.74-1.73-4.39-6-7.5-11-7.5-1.4 0-2.74.25-3.98.7l2.16 2.16C10.74 7.13 11.35 7 12 7zM2 4.27l2.28 2.28.46.46C3.08 8.3 1.78 10.02 1 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.42.42L19.73 22 21 20.73 3.27 3 2 4.27zM7.53 9.8l1.55 1.55c-.05.21-.08.43-.08.65 0 1.66 1.34 3 3 3 .22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53-2.76 0-5-2.24-5-5 0-.79.2-1.53.53-2.2zm4.31-.78l3.15 3.15.02-.16c0-1.66-1.34-3-3-3l-.17.01z" />
+                    </svg>
+                </button>
+            </div>
+            <input type="text" id="registerName" placeholder="姓名: String" required>
+            <input type="text" placeholder="電話: String">
+            <input type="email" placeholder="電子郵件: String">
+
+            <button class="primary" onclick="register()">註冊</button>
+            <button onclick="showPage('User')">返回</button>
+        </div>
+
+        <div id="MainPage" class="page">
+            <h2>主畫面</h2>
+            <p>歡迎回來！以下是您的訂單概況。</p>
+            <div class="card">
+                <p>請使用上方的導航欄進入各功能頁面。</p>
+                <p>點擊右下角的紅色 **+** 按鈕可以 **新增揪團**。</p>
+            </div>
+        </div>
+
+        <div id="Order" class="page">
+            <h2>我揪的單 (進行中)</h2>
+            <div id="myOrderList">
+                <p style="color: #6c757d;">載入中...</p>
+            </div>
+
+        </div>
+
+        <div id="OrderDetail" class="page">
+            <h2>訂單詳情</h2>
+            <div id="orderDetailContent">
+                <p>載入中...</p>
+            </div>
+            <button onclick="showPage('Order')">返回</button>
+        </div>
+
+        <div id="payment" class="page">
+            <h2>揪團資料 (團員列表)</h2>
+
+            <div class="paylist-header">
+                <div class="col-name">姓名</div>
+                <div class="col-item">品項</div>
+                <div class="col-amount">金額</div>
+                <div class="col-paid">已付</div>
+                <div class="col-note">備註</div>
+            </div>
+
+            <div id="payListContainer">
+                <button class="primary" id="editPayListButton" onclick="toggleEditMode(true)">修改</button>
+                <button class="primary" id="savePayListButton" onclick="savePayList()"
+                    style="display: none; background-color: #2ecc71;">儲存修改</button>
+                <button onclick="showPage('Order')">返回</button>
+            </div>
+
+            <button class="primary" id="editPayListButton" onclick="toggleEditMode(true)"
+                style="margin-right: 10px;">修改</button>
+            <button class="primary" id="savePayListButton" onclick="savePayList()"
+                style="margin-right: 10px; display: none;">儲存所有修改</button>
+            <button onclick="showPage('OrderDetail')">返回訂單詳情</button>
+        </div>
+
+        <div id="JoinOrder" class="page">
+            <h2>我加的單 (我的填單紀錄)</h2>
+            <div id="myJoinedOrderList">
+                <p style="color: #6c757d;">載入中...</p>
+            </div>
+
+        </div>
+
+        <div id="HistoryRecord" class="page">
+            <h2>歷史紀錄 (已結束)</h2>
+            <div id="myHistoryOrderList">
+                <p style="color: #6c757d;">載入已結束訂單...</p>
+            </div>
+
+        </div>
+
+        <div id="OrderDetail1" class="page">
+            <h2>歷史訂單詳情 (閱讀模式)</h2>
+            <div id="historyOrderDetailContent">
+                <p>此處顯示已結束訂單的詳細資訊。</p>
+            </div>
+            <button onclick="showPage('HistoryRecord')">返回</button>
+        </div>
+
+        <div id="SearchService" class="page">
+            <h2>搜尋</h2>
+            <input type="text" id="searchKeyword" placeholder="關鍵字: String">
+            <button class="primary" onclick="searchOrder()">搜尋</button>
+
+        </div>
+
+        <div id="SearchService1" class="page">
+            <h2>搜尋結果</h2>
+            <div id="searchResultList">
+                <p style="color: #6c757d;">請在上一個頁面輸入關鍵字進行搜尋。</p>
+            </div>
+            <button onclick="showPage('SearchService')">返回搜尋</button>
+        </div>
+
+
+        <div id="SearchService2" class="page">
+            <h2>加揪密碼</h2>
+            <p id="joinOrderTitle"></p>
+            <p>請輸入加入密碼。</p>
+            <div class="password-container">
+                <input type="password" id="joinPasswordInput" placeholder="密碼">
+                <button type="button" class="toggle-password" onclick="togglePasswordVisibility('joinPasswordInput')">
+                    <svg class="eye-icon" viewBox="0 0 24 24">
+                        <path
+                            d="M12 7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.82l2.92 2.92c1.51-1.26 2.7-2.89 3.44-4.74-1.73-4.39-6-7.5-11-7.5-1.4 0-2.74.25-3.98.7l2.16 2.16C10.74 7.13 11.35 7 12 7zM2 4.27l2.28 2.28.46.46C3.08 8.3 1.78 10.02 1 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.42.42L19.73 22 21 20.73 3.27 3 2 4.27zM7.53 9.8l1.55 1.55c-.05.21-.08.43-.08.65 0 1.66 1.34 3 3 3 .22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53-2.76 0-5-2.24-5-5 0-.79.2-1.53.53-2.2zm4.31-.78l3.15 3.15.02-.16c0-1.66-1.34-3-3-3l-.17.01z" />
+                    </svg>
+                </button>
+            </div>
+            <button class="primary" onclick="checkJoinPassword()">加入並查看訂單</button>
+            <button onclick="showPage('SearchService1')">返回搜尋結果</button>
+        </div>
+
+        <div id="SearchService3" class="page">
+            <h2>訂單資訊 (確認頁)</h2>
+            <div id="joiningOrderDetail">
+                <p><strong>標題:</strong> <span id="infoTitle"></span></p>
+                <p><strong>店家:</strong> <span id="infoHost"></span></p>
+                <p><strong>截止時間:</strong> <span id="infoDeadline"></span></p>
+                <p><strong>備註:</strong> <span id="infoDescription"></span></p>
+                <p><strong>菜單:</strong> <span id="infoDescription"></span></p>
+
+                <div id="infoMenuImageContainer" style="margin-top: 10px;">
+                    <img id="infoMenuImage" src="" style="display:none;">
+                </div>
+            </div>
+            <button class="primary" onclick="showPage('SearchService4')">填單</button>
+            <button onclick="showPage('SearchService1')">返回搜尋結果</button>
+        </div>
+
+        <div id="SearchService4" class="page">
+            <h2>填單頁面 (加入訂單)</h2>
+            <h3>加入訂單：<span id="fillOrderTitle"></span></h3>
+            <p>請填寫您的訂購資訊：</p>
+            <input type="text" id="fillName" placeholder="姓名: String" value="">
+            <input type="text" id="fillPhone" placeholder="電話: String">
+            <input type="text" id="fillItem" placeholder="品項: String">
+            <input type="text" id="fillAmount" placeholder="金額: String">
+            <input type="text" id="fillNote" placeholder="備註/特殊需求 (例如：加珍珠、去冰)">
+            <button class="primary" onclick="submitJoinOrder()">送出</button>
+            <button onclick="showPage('SearchService3')">返回訂單資訊</button>
+        </div>
+
+        <div id="SearchService5" class="page">
+            <h2>編輯我的填單資料</h2>
+            <h3>訂單：<span id="editFillOrderTitle"></span></h3>
+            <p>您可以修改您的品項、金額、電話及備註：</p>
+            <input type="hidden" id="editEntryId">
+            <input type="text" id="editFillName" placeholder="姓名: String (不可改)" readonly>
+            <input type="text" id="editFillPhone" placeholder="電話: String">
+            <input type="text" id="editFillItem" placeholder="品項: String">
+            <input type="text" id="editFillAmount" placeholder="金額: String">
+            <input type="text" id="editFillNote" placeholder="備註/特殊需求">
+
+            <div style="margin-top: 20px; display: flex; justify-content: space-between;">
+                <button class="delete-button" id="deleteEntryButton"
+                    onclick="deleteJoinedEntry(parseInt(document.getElementById('editEntryId').value))">
+                    🗑️ 刪除
+                </button>
+                <div>
+                    <button class="primary" onclick="submitEditedJoinedEntry()">儲存修改</button>
+                    <button onclick="showPage('JoinOrder')">取消並返回</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="NewOrderPage" class="page">
+            <h2>新增揪團 (填單頁面)</h2>
+            <p>請填寫新的揪團訂單資訊：</p>
+            <input type="text" id="newOrderTitle" placeholder="標題(必填)">
+            <input type="text" id="newOrderHost" placeholder="主辦/店家">
+            <label for="newOrderDeadline" style="margin-top: 5px; display: block;">截止時間 **(必填)**</label>
+            <input type="datetime-local" id="newOrderDeadline">
+            <input type="text" id="newOrderContact" placeholder="聯絡電話">
+            <input type="text" id="newOrderContact2" placeholder="幫湊免運 (例如：滿 500 免運)">
+            <input type="text" id="newOrderContact3" placeholder="其他聯絡方式 (例如：Line ID)">
+            <div class="password-container">
+                <input type="password" id="newOrderPassword" placeholder="密碼">
+                <button type="button" class="toggle-password" onclick="togglePasswordVisibility('newOrderPassword')">
+                    <svg class="eye-icon" viewBox="0 0 24 24">
+                        <path
+                            d="M12 7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.82l2.92 2.92c1.51-1.26 2.7-2.89 3.44-4.74-1.73-4.39-6-7.5-11-7.5-1.4 0-2.74.25-3.98.7l2.16 2.16C10.74 7.13 11.35 7 12 7zM2 4.27l2.28 2.28.46.46C3.08 8.3 1.78 10.02 1 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.42.42L19.73 22 21 20.73 3.27 3 2 4.27zM7.53 9.8l1.55 1.55c-.05.21-.08.43-.08.65 0 1.66 1.34 3 3 3 .22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53-2.76 0-5-2.24-5-5 0-.79.2-1.53.53-2.2zm4.31-.78l3.15 3.15.02-.16c0-1.66-1.34-3-3-3l-.17.01z" />
+                    </svg>
+                </button>
+            </div>
+            <textarea id="newOrderDescription" placeholder="備註"></textarea>
+            <label for="newOrderImage" style="margin-top: 10px; display: block;">上傳菜單圖片</label>
+            <input type="file" id="newOrderImage" accept="image/*" onchange="previewMenuImage(event)">
+            <div id="imagePreviewContainer" style="margin-top: 10px;">
+                <img id="menuImagePreview" src="" style="max-width: 100%; display: none; border-radius: 8px;">
+            </div>
+
+            <button class="primary" onclick="saveNewOrder()">儲存</button>
+            <button onclick="cancelNewOrder()">取消</button>
+        </div>
+
+        <div id="Member" class="page">
+            <h2>個人設定</h2>
+            <button onclick="showPage('Page')">用戶資料 (進入)</button>
+            <button onclick="logout()">登出</button>
+            <button onclick="showPage('MainPage')">返回</button>
+        </div>
+
+        <div id="Page" class="page">
+            <h2>用戶資料頁面</h2>
+            <input type="text" id="userName" placeholder="姓名: String">
+            <input type="text" id="userPhone" placeholder="電話: String">
+            <input type="email" id="userEmail" placeholder="電子郵件: String">
+            <button class="primary" onclick="saveUserProfile()">儲存</button>
+            <button onclick="showPage('Member')">返回</button>
+        </div>
+
+    </div>
+
+    <button class="fab-button" id="fabAddButton" onclick="showPage('NewOrderPage')" style="display:none;">
+        <span class="fab-icon">+</span>
+    </button>
+
+    <div id="SearchService3" class="page">
+        <h2>訂單資訊 (確認頁)</h2>
+
+        <div id="joiningOrderDetail">
+            <p><strong>標題:</strong> <span id="infoTitle"></span></p>
+            <p><strong>店家:</strong> <span id="infoHost"></span></p>
+            <p><strong>截止時間:</strong> <span id="infoDeadline"></span></p>
+
+            <!-- 菜單 / 備註文字 -->
+            <p><strong>菜單 :</strong><br>
+                <span id="infoDescription"></span>
+            </p>
+
+            <!-- ⭐ 菜單圖片（最後一行） -->
+            <div id="infoMenuImageContainer" style="margin-top: 12px;">
+                <img id="infoMenuImage" style="max-width:100%; border-radius:8px; display:none;">
+            </div>
+        </div>
+
+        <button class="primary" onclick="showPage('SearchService4')">填單</button>
+        <button onclick="showPage('SearchService1')">返回搜尋結果</button>
+    </div>
+
+   
+
+</body>
+
+</html>

@@ -1,0 +1,466 @@
+/* CSS 樣式 */
+        /* 在 style 區塊新增 [cite: 245] */
+        /* 密碼容器 */
+        .password-container {
+            position: relative;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        /* 純圖案按鈕（無背景） */
+        .toggle-password {
+            position: absolute;
+            right: 12px;
+            /* 增加一點邊距 */
+            top: 50%;
+            transform: translateY(-50%);
+
+            background: none;
+            /* 移除背景 */
+            border: none;
+            /* 移除邊框 */
+            padding: 0;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            transition: opacity 0.2s;
+        }
+
+        .toggle-password:hover {
+            opacity: 0.7;
+            /* 滑過時稍微變淡 */
+        }
+
+        /* 眼睛圖標顏色 */
+        .eye-icon {
+            width: 24px;
+            height: 24px;
+            fill: #555;
+            /* 改為深灰色，適合白色背景 */
+        }
+
+        /* 確保文字不會被圖案擋住 */
+        input[type="password"],
+        input[type="text"] {
+            padding-right: 45px !important;
+        }
+
+        #imagePreviewContainer img,
+        #orderDetailContent img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            margin-top: 10px;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+
+        .page {
+            display: none;
+            padding: 20px;
+            max-width: 800px;
+            margin: 20px auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.5em;
+        }
+
+        nav button {
+            background: none;
+            border: none;
+            color: white;
+            padding: 8px 15px;
+            margin-left: 10px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+
+        nav button:hover {
+            background-color: #555;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="email"],
+        textarea,
+        input[type="datetime-local"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button.primary {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        button.primary:hover {
+            background-color: #0056b3;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            margin-left: auto;
+            gap: 8px;
+        }
+
+        .fab-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .fab-icon {
+            color: white;
+            font-size: 36px;
+            line-height: 1;
+        }
+
+
+        /* 訂單卡片樣式調整 */
+        /* ===== 通用清單卡片樣式（對齊圖片） ===== */
+        .list-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .order-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 18px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .order-card h3 {
+            margin: 0 0 8px;
+            font-size: 1.1rem;
+            color: #333;
+        }
+
+        .order-meta {
+            font-size: 0.85rem;
+            color: #6c757d;
+            margin-bottom: 10px;
+        }
+
+        .order-desc {
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        /* 按鈕區 */
+        .card-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        .btn-edit {
+            background: #f59e0b;
+            color: white;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .btn-detail {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .btn-edit:hover {
+            background: #d97706;
+        }
+
+        .btn-detail:hover {
+            background: #2c80b4;
+        }
+
+
+        /* 新增懸浮按鈕樣式 (FAB) */
+        .fab-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #dc3545;
+            color: white;
+            font-size: 2em;
+            line-height: 55px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+            cursor: pointer;
+            z-index: 1000;
+            border: none;
+            transition: background-color 0.2s;
+        }
+
+        .fab-button:hover {
+            background-color: #c82333;
+        }
+
+        /* 團員列表排版樣式 */
+        .paylist-row,
+        .paylist-header {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 15px;
+            border-bottom: 1px solid #eee;
+            align-items: center;
+        }
+
+        .paylist-header {
+            font-weight: bold;
+            background-color: #f1f1f1;
+            border-bottom: 2px solid #ccc;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .paylist-row {
+            background-color: #fff;
+        }
+
+        .paylist-row:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .paylist-row>div,
+        .paylist-header>div {
+            width: 15%;
+            text-align: center;
+        }
+
+        .paylist-row .col-name,
+        .paylist-header .col-name {
+            width: 15%;
+            text-align: left;
+        }
+
+        .paylist-row .col-item,
+        .paylist-header .col-item {
+            width: 35%;
+        }
+
+        .paylist-row .col-amount,
+        .paylist-header .col-amount {
+            width: 10%;
+        }
+
+        .paylist-row .col-paid,
+        .paylist-header .col-paid {
+            width: 10%;
+        }
+
+        .paylist-row .col-note,
+        .paylist-header .col-note {
+            width: 20%;
+        }
+
+        /* 編輯/只讀時的輸入框樣式調整 */
+        .paylist-row input[type="text"],
+        .paylist-row input[type="checkbox"] {
+            padding: 5px;
+            margin: 0;
+            height: auto;
+            min-height: 20px;
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        /* 只讀狀態下的輸入框樣式 (閱讀模式) */
+        .paylist-row input[readonly] {
+            border: none;
+            background: transparent;
+            cursor: default;
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        /* 只讀狀態下，禁用 Checkbox 的點擊 */
+        .paylist-row input[readonly][type="checkbox"] {
+            pointer-events: none;
+            opacity: 0.8;
+        }
+
+        /* 編輯狀態下的輸入框樣式 (編輯模式) */
+        .paylist-row input:not([readonly])[type="text"] {
+            border: 1px solid #ccc;
+        }
+
+        .paylist-row input[type="checkbox"] {
+            width: auto;
+        }
+
+        /* ===== 全站按鈕統一成膠囊型（不改顏色） ===== */
+        button,
+        button.primary,
+        .btn-detail,
+        .btn-edit,
+        .delete-button {
+            border-radius: 999px;
+            /* 膠囊圓角 */
+            padding: 8px 18px;
+            /* 高度與寬度 */
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 1.2;
+            cursor: pointer;
+        }
+
+        /* hover 時只做微亮，不改色系 */
+        button:hover,
+        button.primary:hover,
+        .btn-detail:hover,
+        .btn-edit:hover,
+        .delete-button:hover {
+            filter: brightness(0.95);
+        }
+
+        /* 搜尋結果頁：返回搜尋按鈕與卡片保持距離 */
+        #SearchService1 button {
+            margin-top: 24px;
+        }
+
+        /* ===== Header 頭貼區 ===== */
+        .avatar-wrapper {
+            position: relative;
+        }
+
+        /* 圓形頭貼按鈕 */
+        .avatar-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #1a73e8;
+            color: white;
+            font-size: 18px;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* 浮出選單 */
+        .user-menu {
+            position: absolute;
+            top: 50px;
+            right: 0;
+            width: 260px;
+            background: #000000;
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            padding: 12px;
+            display: none;
+            z-index: 2000;
+        }
+
+        /* 顯示狀態 */
+        .user-menu.active {
+            display: block;
+        }
+
+        /* 選單上方使用者資訊 */
+        .user-menu-header {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 10px;
+        }
+
+        .user-avatar-large {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: #1a73e8;
+            color: white;
+            font-size: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .user-greeting {
+            font-size: 14px;
+        }
+
+        .user-greeting div:first-child {
+            font-weight: 600;
+        }
+
+        .user-email {
+            font-size: 12px;
+            color: #6c757d;
+        }
+
+        /* 選單按鈕 */
+        .user-menu button {
+            width: 100%;
+            border: none;
+            background: none;
+            padding: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            text-align: left;
+        }
+
+        .user-menu button:hover {
+            background: #f1f3f4;
+        }
